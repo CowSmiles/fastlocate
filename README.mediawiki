@@ -19,7 +19,52 @@ optional arguments:
   -d, --dir   to find directory.
   -f, --file  to find file.
 </pre>
-Example:
 
-<pre>fastlocate.py -d test_files Dropbox</pre>
+=== Example ===
+Search the directory whose base name is "test" and also whose path contains "Dropbox":
+<pre>fastlocate.py -d test Dropbox</pre>
+
+Because there is only one result. So it outputs:
+<pre>/home/klniu/Dropbox/code/go/test</pre>
+
+Search the directory whose base name is "ldar" and also whose path contains "Dropbox":
+<pre>fastlocate.py -d ldar Dropbox</pre>
+
+Because there are many results. So it outputs a menu for you to select the right item:
+<pre>
+1) /home/klniu/Dropbox/Documents/LDAR
+2) /home/klniu/Dropbox/code/python/ldar
+3) /home/klniu/Dropbox/code/python/ldar/system/ldar
+Please select the file to edit:
+</pre>
+input a integer and the script will output the right path.
+
+=== Awesome ===
+Combile the script and bash, we can move around fast:
+
+put the fastlocate.py in some place, such as ~/bin, and:
+<pre>chmod +x ~/bin/fastlocate.py</pre>
+
+put the following function into ~/.bashrc, we can do a lot of thing:
+<pre>
+# cd around 
+function lcd(){
+    result=`~/bin/fastlocate.py -d $@|tee /dev/stderr`
+    cd $result
+}
+
+# vim a file around
+function lvim(){
+    result=`~/bin/fastlocate.py -f $@|tee /dev/stderr`
+    vim -p -g --servername GVIM --remote-tab-silent $result
+}
+</pre>
+
+You can create your own function to extend the script.
+
+In terminal, input:
+<pre>lvim .bashrc</pre>
+to edit .bashrc
+<pre>lcd Dropbox</pre>
+to chage dir to Dropbox
 
