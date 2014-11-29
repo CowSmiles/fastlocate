@@ -65,6 +65,7 @@ You can create your own function to extend the script.
 In terminal, input:
 <pre>lvim .bashrc</pre>
 to edit .bashrc
+
 <pre>lcd Dropbox</pre>
 to chage dir to Dropbox
 
