@@ -1,0 +1,25 @@
+== fastlocate ==
+fast locate a file or directory using locate command in linux
+
+The script can get the results according given keywords using locate command. When there is only one result, it will output only one path match the keywords. While reading a input when there are many results.
+
+Combine the script and bash, we can do a lot of fast move.
+
+=== usage ===
+<pre>
+usage: fastlocate.py [-h] (-d | -f) keywords [keywords ...]
+
+locate the file using locate command in linux.
+
+positional arguments:
+  keywords    keywords
+
+optional arguments:
+  -h, --help  show this help message and exit
+  -d, --dir   to find directory.
+  -f, --file  to find file.
+</pre>
+Example:
+
+<pre>fastlocate.py -d test_files Dropbox</pre>
+
