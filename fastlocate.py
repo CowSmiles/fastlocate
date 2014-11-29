@@ -3,7 +3,7 @@
 #     File Name           :     lvim.py
 #     Created By          :     Hugh Gao
 #     Creation Date       :     [2014-11-28 16:48]
-#     Last Modified       :     [2014-11-29 14:33]
+#     Last Modified       :     [2014-11-29 15:30]
 #     Description         :     Using linux locate command to find the result
 #     and vim it.
 ################################################################################
@@ -18,9 +18,9 @@ parser = argparse.ArgumentParser(description='locate the file using locate'
                                  ' command in linux.')
 group = parser.add_mutually_exclusive_group(required=True)
 group.add_argument('-d', '--dir', action='store_true',
-                   help='Is to find directory.')
+                   help='to find directory.')
 group.add_argument('-f', '--file', action='store_true',
-                   help='Is to find file.')
+                   help='to find file.')
 parser.add_argument('keywords', nargs="+", action='store', help='keywords')
 args = parser.parse_args()
 
