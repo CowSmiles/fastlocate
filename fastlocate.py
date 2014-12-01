@@ -3,7 +3,7 @@
 #     File Name           :     lvim.py
 #     Created By          :     Hugh Gao
 #     Creation Date       :     [2014-11-28 16:48]
-#     Last Modified       :     [2014-12-01 08:50]
+#     Last Modified       :     [2014-12-01 09:20]
 #     Description         :     Using linux locate command to find the result
 #     and vim it.
 ################################################################################
@@ -52,10 +52,10 @@ else:
         print("%s) %s" % (i, f), file=sys.stderr)
     while True:
         if args.file:
-            print('Please select the file to edit(default=1): ',
+            print('Please select the file to edit(default=1, "q" for quit): ',
                   file=sys.stderr, end='')
         elif args.dir:
-            print('Please select the directory(default=1): ',
+            print('Please select the directory(default=1, "q" for quit): ',
                   file=sys.stderr, end='')
         result = input()
         if result.isnumeric() and len(files) >= int(result):
@@ -64,3 +64,5 @@ else:
         elif result == '':
             print(files[0], end='')
             break
+        elif result == 'q':
+            exit()
