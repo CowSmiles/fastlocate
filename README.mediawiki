@@ -1,15 +1,15 @@
 == fastlocate ==
-fast locate a file or directory using locate command in linux
+fast locate a file or directory using locate command in linux.
 
 The script can get the results according given keywords using locate command. When there is only one result, it will output only one path match the keywords. While reading a input when there are many results.
 
-Combine the script and bash, we can do a lot of fast move.
+Combine the script and bash, we can do a lot of fast moves.
 
 === usage ===
 <pre>
 usage: fastlocate.py [-h] (-d | -f) keywords [keywords ...]
 
-locate the file using locate command in linux.
+locate the file or directory using locate command in linux.
 
 positional arguments:
   keywords    keywords
@@ -45,7 +45,7 @@ Combile the script and bash, we can move around fast:
 put the fastlocate.py in some place, such as ~/bin, and:
 <pre>chmod +x ~/bin/fastlocate.py</pre>
 
-put the following function into ~/.bashrc, we can do a lot of thing:
+put the following functions into ~/.bashrc, we can do a lot of thing:
 <pre>
 # cd around 
 function lcd(){
@@ -60,12 +60,11 @@ function lvim(){
 }
 </pre>
 
-You can create your own function to extend the script.
-
 In terminal, input:
 <pre>lvim .bashrc</pre>
 to edit .bashrc
 
 <pre>lcd Dropbox</pre>
-to chage dir to Dropbox
+to change directory to Dropbox
 
+You can create your own functions to extend the script.
