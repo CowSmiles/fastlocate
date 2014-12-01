@@ -3,7 +3,7 @@
 #     File Name           :     lvim.py
 #     Created By          :     Hugh Gao
 #     Creation Date       :     [2014-11-28 16:48]
-#     Last Modified       :     [2014-12-01 08:44]
+#     Last Modified       :     [2014-12-01 08:50]
 #     Description         :     Using linux locate command to find the result
 #     and vim it.
 ################################################################################
@@ -21,13 +21,16 @@ group.add_argument('-d', '--dir', action='store_true',
                    help='to find directory.')
 group.add_argument('-f', '--file', action='store_true',
                    help='to find file.')
+group.add_argument('-l', '--limit', type=int, default=15, action='store',
+                   help='the maximum number of the results.')
 parser.add_argument('keywords', nargs="+", action='store', help='keywords')
 args = parser.parse_args()
 
 if args.file:
-    locate = 'locate -A -e -i -l 15 %s' % ' '.join(args.keywords)
+    locate = 'locate -A -e -i -l %s %s' % (args.limit, ' '.join(args.keywords))
 else:
-    locate = 'locate -A -e -i -l 15 --regex /%s$ %s' % (args.keywords[0],
+    locate = 'locate -A -e -i -l %s --regex /%s$ %s' % (args.limit,
+                                                        args.keywords[0],
                                                         ' '.join(args.keywords))
 commands = shlex.split(locate)
 files = []
