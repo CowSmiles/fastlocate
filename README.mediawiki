@@ -7,17 +7,19 @@ Combine the script and bash, we can do a lot of fast moves.
 
 === usage ===
 <pre>
-usage: fastlocate.py [-h] (-d | -f) keywords [keywords ...]
+usage: fastlocate.py [-h] (-d | -f | -l LIMIT) keywords [keywords ...]
 
-locate the file or directory using locate command in linux.
+locate the file using locate command in linux.
 
 positional arguments:
-  keywords    keywords
+  keywords              keywords
 
 optional arguments:
-  -h, --help  show this help message and exit
-  -d, --dir   to find directory.
-  -f, --file  to find file.
+  -h, --help            show this help message and exit
+  -d, --dir             to find directory.
+  -f, --file            to find file.
+  -l LIMIT, --limit LIMIT
+                        the maximum number of the results.
 </pre>
 
 === Example ===
@@ -32,12 +34,12 @@ Search the directory whose base name is "ldar" and also whose path contains "Dro
 
 Because there are many results. So it outputs a menu for you to select the right item:
 <pre>
-1) /home/klniu/Dropbox/Documents/LDAR
-2) /home/klniu/Dropbox/code/python/ldar
-3) /home/klniu/Dropbox/code/python/ldar/system/ldar
-Please select the file to edit:
+1) /home/klniu/Dropbox/code/python/ldar
+2) /home/klniu/Dropbox/code/python/ldar/system/ldar
+3) /home/klniu/Dropbox/documents/ldar
+Please select the directory(default=1, "q" for quit):
 </pre>
-input a integer and the script will output the right path.
+input a integer and the script will output the right path. Press enter to select the first result, and "q" to quit.
 
 === Awesome ===
 Combile the script and bash, we can move around fast:
@@ -50,13 +52,25 @@ put the following functions into ~/.bashrc, we can do a lot of thing:
 # cd around 
 function lcd(){
     result=`~/bin/fastlocate.py -d $@|tee /dev/stderr`
-    cd $result
+    if [[ ! -z $result ]]; then
+        cd $result
+    fi
 }
 
 # vim a file around
 function lvim(){
     result=`~/bin/fastlocate.py -f $@|tee /dev/stderr`
-    vim -p -g --servername GVIM --remote-tab-silent $result
+    if [[ ! -z $result ]]; then
+        vim -p -g --servername GVIM --remote-tab-silent $result
+    fi
+}
+
+# krusader a file around
+function lfm(){
+    result=`~/bin/fastlocate.py -d $@|tee /dev/stderr`
+    if [[ ! -z $result ]]; then
+        krusader $result
+    fi
 }
 </pre>
 
