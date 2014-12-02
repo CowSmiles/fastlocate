@@ -39,7 +39,7 @@ Because there are many results. So it outputs a menu for you to select the right
 3) /home/klniu/Dropbox/documents/ldar
 Please select the directory(default=1, "q" for quit):
 </pre>
-input a integer and the script will output the right path. Press enter to select the first result, and "q" to quit.
+input a integer and the script will output the right path. Press enter to select the first result, or "q" to quit.
 
 === Awesome ===
 Combile the script and bash, we can move around fast:
