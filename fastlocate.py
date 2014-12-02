@@ -3,7 +3,7 @@
 #     File Name           :     lvim.py
 #     Created By          :     Hugh Gao
 #     Creation Date       :     [2014-11-28 16:48]
-#     Last Modified       :     [2014-12-02 08:51]
+#     Last Modified       :     [2014-12-02 14:33]
 #     Description         :     Using linux locate command to find the result
 #     and vim it.
 ################################################################################
@@ -26,19 +26,20 @@ group.add_argument('-l', '--limit', type=int, default=15, action='store',
 parser.add_argument('keywords', nargs="+", action='store', help='keywords')
 args = parser.parse_args()
 
-if args.file:
-    locate = 'locate -A -e -i -l %s %s' % (args.limit, ' '.join(args.keywords))
-else:
-    locate = 'locate -A -e -i -l %s --regex /%s$ %s' % (args.limit,
-                                                        args.keywords[0],
-                                                        ' '.join(args.keywords))
+locate = 'locate -b -e -i %s' % args.keywords[0]
 commands = shlex.split(locate)
 files = []
+
+
 with Popen(commands, stdout=PIPE) as proc:
     for line in iter(proc.stdout.readline, b''):
         if not line.strip():
             break
         file_finded = line.decode('utf-8').strip()
+        # filter extra keywords
+        if len(args.keywords) > 1:
+            if not all(map(lambda x: x in file_finded, args.keywords)):
+                continue
         if args.file and os.path.isfile(file_finded):
             files.append(file_finded)
         elif args.dir and os.path.isdir(file_finded):
@@ -50,6 +51,8 @@ elif len(files) == 1:
     print(files[0], end='')
 else:
     for i, f in enumerate(files, 1):
+        if i == args.limit:
+            break
         print("%s) %s" % (i, f), file=sys.stderr)
     while True:
         if args.file:
