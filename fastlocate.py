@@ -3,7 +3,7 @@
 #     File Name           :     lvim.py
 #     Created By          :     Hugh Gao
 #     Creation Date       :     [2014-11-28 16:48]
-#     Last Modified       :     [2014-12-01 09:20]
+#     Last Modified       :     [2014-12-02 08:51]
 #     Description         :     Using linux locate command to find the result
 #     and vim it.
 ################################################################################
@@ -44,6 +44,7 @@ with Popen(commands, stdout=PIPE) as proc:
         elif args.dir and os.path.isdir(file_finded):
             files.append(file_finded)
 if len(files) == 0:
+    print('No result', file=sys.stderr, end='')
     exit
 elif len(files) == 1:
     print(files[0], end='')
