@@ -75,10 +75,14 @@ function lfm(){
 </pre>
 
 In terminal, input:
-<pre>lvim .bashrc</pre>
+<pre>lvim .bashrc /home</pre>
 to edit .bashrc
 
 <pre>lcd Dropbox</pre>
 to change directory to Dropbox
+
+
+<pre>lfm test /home</pre>
+to open the test directory which locates in /home in krusader.
 
 You can create your own functions to extend the script.
