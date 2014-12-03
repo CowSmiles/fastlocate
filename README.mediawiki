@@ -5,6 +5,11 @@ The script can get the results according given keywords using locate command. Wh
 
 Combine the script and bash, we can do a lot of fast moves.
 
+== depends ==
+the script depends the following software:
+* python3
+* mlocate
+
 === usage ===
 <pre>
 usage: fastlocate.py [-h] (-d | -f | -l LIMIT) keywords [keywords ...]
@@ -86,3 +91,16 @@ to change directory to Dropbox
 to open the test directory which locates in /home in krusader.
 
 You can create your own functions to extend the script.
+
+== Tips ==
+You can edit the /usr/lib/systemd/system/updatedb.timer to update the database of mlocate every hour.
+
+<pre>
+[Unit]
+Description=Daily locate database update
+
+[Timer]
+OnBootSec=10min
+OnUnitActiveSec=1h
+Persistent=true
+</pre>
