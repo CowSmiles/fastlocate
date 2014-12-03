@@ -3,7 +3,7 @@
 #     File Name           :     lvim.py
 #     Created By          :     Hugh Gao
 #     Creation Date       :     [2014-11-28 16:48]
-#     Last Modified       :     [2014-12-02 14:33]
+#     Last Modified       :     [2014-12-03 13:53]
 #     Description         :     Using linux locate command to find the result
 #     and vim it.
 ################################################################################
@@ -33,12 +33,11 @@ files = []
 
 with Popen(commands, stdout=PIPE) as proc:
     for line in iter(proc.stdout.readline, b''):
-        if not line.strip():
-            break
         file_finded = line.decode('utf-8').strip()
         # filter extra keywords
         if len(args.keywords) > 1:
-            if not all(map(lambda x: x in file_finded, args.keywords)):
+            if not all(map(lambda x: x.lower() in file_finded.lower(),
+                           args.keywords)):
                 continue
         if args.file and os.path.isfile(file_finded):
             files.append(file_finded)
@@ -51,7 +50,7 @@ elif len(files) == 1:
     print(files[0], end='')
 else:
     for i, f in enumerate(files, 1):
-        if i == args.limit:
+        if i == args.limit + 1:
             break
         print("%s) %s" % (i, f), file=sys.stderr)
     while True:
