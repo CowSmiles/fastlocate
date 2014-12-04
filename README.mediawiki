@@ -12,7 +12,8 @@ the script depends the following software:
 
 === usage ===
 <pre>
-usage: fastlocate.py [-h] (-d | -f | -l LIMIT) keywords [keywords ...]
+usage: fastlocate.py [-h] (-d | -f) [-l LIMIT] [-i IGNORE]
+                     keywords [keywords ...]
 
 locate the file using locate command in linux.
 
@@ -25,6 +26,8 @@ optional arguments:
   -f, --file            to find file.
   -l LIMIT, --limit LIMIT
                         the maximum number of the results.
+  -i IGNORE, --ignore IGNORE
+                        ignore the paths containing the given word.
 </pre>
 
 === Example ===
@@ -64,7 +67,7 @@ function lcd(){
 
 # vim a file around
 function lvim(){
-    result=`~/bin/fastlocate.py -f $@|tee /dev/stderr`
+    result=`~/bin/fastlocate.py -f -i % $@|tee /dev/stderr`
     if [[ ! -z $result ]]; then
         vim -p -g --servername GVIM --remote-tab-silent $result
     fi
