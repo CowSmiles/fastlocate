@@ -3,7 +3,7 @@
 #     File Name           :     lvim.py
 #     Created By          :     Hugh Gao
 #     Creation Date       :     [2014-11-28 16:48]
-#     Last Modified       :     [2014-12-03 13:53]
+#     Last Modified       :     [2014-12-04 13:41]
 #     Description         :     Using linux locate command to find the result
 #     and vim it.
 ################################################################################
@@ -24,6 +24,8 @@ group.add_argument('-f', '--file', action='store_true',
 group.add_argument('-l', '--limit', type=int, default=15, action='store',
                    help='the maximum number of the results.')
 parser.add_argument('keywords', nargs="+", action='store', help='keywords')
+parser.add_argument('-i', '--ignore', action='append',
+                    help='ignore path containing the given word.')
 args = parser.parse_args()
 
 locate = 'locate -b -e -i %s' % args.keywords[0]
@@ -34,11 +36,13 @@ files = []
 with Popen(commands, stdout=PIPE) as proc:
     for line in iter(proc.stdout.readline, b''):
         file_finded = line.decode('utf-8').strip()
+        contain_fuc = lambda x: x.lower() in file_finded.lower()
         # filter extra keywords
         if len(args.keywords) > 1:
-            if not all(map(lambda x: x.lower() in file_finded.lower(),
-                           args.keywords)):
+            if not all(map(contain_fuc, args.keywords)):
                 continue
+        if args.ignore and any(map(contain_fuc, args.ignore)):
+            continue
         if args.file and os.path.isfile(file_finded):
             files.append(file_finded)
         elif args.dir and os.path.isdir(file_finded):
