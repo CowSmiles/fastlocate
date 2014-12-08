@@ -80,6 +80,15 @@ function lfm(){
         krusader $result
     fi
 }
+
+# open a file using xdg-open
+function open(){
+    result=`$CODE/fastlocate/fastlocate.py -f $@|tee /dev/stderr`
+    if [[ ! -z $result ]]; then
+        xdg-open $result > /dev/null 2>&1 
+    fi
+}
+
 </pre>
 
 In terminal, input:
